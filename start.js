@@ -5,24 +5,8 @@ const dbl = require("discord-bot-list");
 //Client = bot 
 const client = new Discord.Client();
 
-//The discord bot list website's Gamebot page content
-const bot = new dbl({
-    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM2NTc1MTEzNTA4NjA1MTM0MCIsImJvdCI6dHJ1ZSwiaWF0IjoxNTA4MjQ4OTkyfQ.8ED57IU_zy6fWf7KTZvToVd251vWjfKLdnZfNFhHPkc",
-    id: "365751135086051340"
-});
-
-bot.postStats(45, (err, res) => {
-    if(err) {
-        console.error(err)
-    } else {
-        console.log(res)
-    }
-})
-
-
 //Load the config file
 const config = require("./config.json");
-//config.token for bot's token
 //config.prefix for bot's prefixes
 
 const package = require("./package.json")
