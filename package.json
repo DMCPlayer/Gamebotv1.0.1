@@ -4,8 +4,8 @@
   "description": "The Offical Gamebot discord bot",
   "main": "start.js",
   "scripts": {
-    "test": "test"
-	  "start": "node start.js"
+    "test": "test",
+    "start": "node start.js"
   },
   "author": "DMCPlayer#6346",
   "license": "ISC",
