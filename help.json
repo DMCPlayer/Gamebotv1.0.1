@@ -1,0 +1,12 @@
+{
+	"title"	  : "<:gb:365931610346094593>** Hello! Need some help?**",
+	"Line" : "Mmmm, ello! This is Gamebot, obviously! Here is all the commands I know to this moment :smile:",
+	"infoCommands" : "`ping`**|**`channel`**|**`server`**|**`upvote`**|**`invite`**|**`emojis`",
+	"gitHub" : "`github`**|**`repo`**|**`repository`",
+	"utilities" : "`avatarme`",
+	"moderation" : "`textch`**|**`voicech`",
+	"fun" : "`8ball`**|**`lenny`**|**`russianroulette`**|**`dice`**|**`say`**|**`ship`**|**`choose`",
+	"images" : "`koneko`**|**`papi-`**|**`spooky`**|**`psycho`",
+	"rps" : "`kiss`**|**`hug`**|**`slap`**|**`stab`**|**`kill`**|**`love`**|**`hate`**|**`propose`**|**`marry`**|**`pat`**|**`cry`",
+	"tickets" : "`bug`**|**`suggest`"
+}
