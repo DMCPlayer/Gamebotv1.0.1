@@ -305,7 +305,7 @@ client.on("message", function(message) {
        //Bot Moderation commands
         //Creates a textchannel with a name of user's prefrence
         case "textch":
-            if (!message.guild.member(bot.user).hasPermission("MANAGE_CHANNELS")) return message.channel.send("**Bot doesn't have** `MANAGE_CHANNELS` **permission**");
+            if (!message.guild.member(client.user).hasPermission("MANAGE_CHANNELS")) return message.channel.send("**Bot doesn't have** `MANAGE_CHANNELS` **permission**");
             if (!message.guild.member(message.author).hasPermission("MANAGE_CHANNELS")) return message.channel.send("**Sorry, you don't have the required (`MANAGE_CHANNELS`) permission**");
             if (!args[1]) return "**Usage**: ---textch `<name>`";    
             if (args[2] !== "text") {
@@ -322,7 +322,7 @@ client.on("message", function(message) {
         //Creates a voicechannel with a name of user's prefrence
         case "voicech":
             //Searches if the bot itself has the permission to manage channels
-            if (!message.guild.member(bot.user).hasPermission("MANAGE_CHANNELS")) return message.channel.send("**Bot doesn't have** `MANAGE_CHANNELS` **permission**");
+            if (!message.guild.member(client.user).hasPermission("MANAGE_CHANNELS")) return message.channel.send("**Bot doesn't have** `MANAGE_CHANNELS` **permission**");
             //Check's if the message excuter has the permission to Manage chanels
             if (!message.guild.member(message.author).hasPermission("MANAGE_CHANNELS")) return message.channel.send("**Sorry, you don't have the required (`MANAGE_CHANNELS`) permission**");
             //If the name isn't specified, it returns Usage
