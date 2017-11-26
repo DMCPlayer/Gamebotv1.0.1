@@ -63,7 +63,7 @@ client.on("message", function(message) {
        //Bot Info commands 
         //A Ping command to show bots Latency
         case "ping":
-            message.channel.send(`**Ping!** \`${Math.round(client.ping)}\` :ping_pong:`)
+            message.channel.send(`**Ping!** \`${Math.round(client.ping)}\`ms :ping_pong:`)
         break;
         //Command to display bot's guilds/channels/users/developers/contributors/uptime/etc.
         case "stats":
