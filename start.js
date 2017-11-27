@@ -603,7 +603,6 @@ client.on("message", function(message) {
             .addField("Moderation", helps.moderation)
             .addField("Fun", helps.fun)
             .addField("Images", helps.images)
-            .addField("Images", helps.images)
             .addField("Rps", helps.rps)
             .addField("Tickets", helps.tickets)
             .setDescription(`Current prefix: ${config.prefix}`)
