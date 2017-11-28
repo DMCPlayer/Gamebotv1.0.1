@@ -136,14 +136,8 @@ client.on("message", function(message) {
         break;
         //Lists the servers the bot is serving
         case "servers":
-            embed = new Discord.RichEmbed()
-                .setColor("#e0d802")
-                .setAuthor("Gamebot's Servers", client.user.avatarURL)
-                .addField("Servers:",  client.guilds.map(g=> `\`${g.name }\``).join("**" + " | " + "**"))
-                .setFooter(`Current Goal: 50 \nCurrent Number: ${client.guilds.size}`)
-            ;
             if (message.author.id !== "191520413107355648" || client.guilds.size > 100) return;
-            else (message.channel.send(embed));            
+            else (message.channel.send(client.guilds.map(g => `\`${g.name}\``).join(`**|**`)));      
         break;
         //Just an invite link to my own server. (Join plz, we have cookies! ;D)
         case "invite": 
