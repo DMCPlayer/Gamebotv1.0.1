@@ -137,7 +137,7 @@ client.on("message", function(message) {
         //Lists the servers the bot is serving
         case "servers":
             if (message.author.id !== "191520413107355648" || client.guilds.size > 100) return;
-            else (message.channel.send(client.guilds.map(g => "`" + g.name + "`").join(`**|**`)));      
+            else (message.channel.send(client.guilds.map(g => "`" + g.name + "`").join(` **|** `)));      
         break;
         //Just an invite link to my own server. (Join plz, we have cookies! ;D)
         case "invite": 
