@@ -3,7 +3,7 @@
 	"Line" : "Mmmm, ello! This is Gamebot, obviously! Here is all the commands I know to this moment :smile:",
 	"infoCommands" : "`ping`**|**`channel`**|**`server`**|**`upvote`**|**`invite`**|**`emojis`",
 	"gitHub" : "`github`**|**`repo`**|**`repository`",
-	"utilities" : "`avatarme`",
+	"utilities" : "`avatar`",
 	"moderation" : "`textch`**|**`voicech`",
 	"fun" : "`8ball`**|**`lenny`**|**`russianroulette`**|**`dice`**|**`say`**|**`choose`**|**`give`",
 	"images" : "`koneko`**|**`papi-`**|**`spooky`**|**`psycho`",
