@@ -310,7 +310,6 @@ client.on("message", function(message) {
                 \n**-__Muted__:** ${message.guild.member(message.author).mute}
                 \n**-__Roles__:** ${message.guild.member(message.author).roles.map(r => "`" + r.name + "` **|**")}
                 \n**-__ID__:** ${message.guild.member(message.author).id}
-                \n**-__Game__:** ${message.guild.member(message.author).presence.game.name}
                 \n**-__Status:__** ${message.guild.member(message.author).presence.status}
                 `)
                 .setThumbnail(message.author.avatarURL)
@@ -327,7 +326,6 @@ client.on("message", function(message) {
                \n**-__Muted__:** ${message.guild.member(Usermention.user).mute}
                \n**-__Roles__:** ${message.guild.member(Usermention.user).roles.map(r => "`" + r.name + "` **|**")}
                \n**-__ID__:** ${message.guild.member(Usermention.user).id}
-               \n**-__Game__:** ${message.guild.member(Usermention.user).presence.game.name}
                \n**-__Status:__** ${message.guild.member(Usermention.user).presence.status}
                `)
                .setThumbnail(Usermention.user.avatarURL)
