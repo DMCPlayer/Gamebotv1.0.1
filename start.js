@@ -147,17 +147,6 @@ client.on("message", function(message) {
         break;
        //Bot Info commands
        //Bot fun commands
-         //Command that ships two random people or the message's author with a random person
-         case "ship":
-          let ship = "me";
-          if (ship) {
-              return message.channel.send(`I ship **${message.author.username}** with **${message.guild.members.random().user.username}**`)
-          }  
-          else {
-            return message.channel.send(`I ship **${message.guild.members.random().user.username}** with **${message.guild.members.random().user.username}**`)
-            
-          }
-         break;
          //Roll a dice, test your luck!
          case "dice":
           message.channel.send(`**Dice landed on \`${[Math.floor(Math.random() * 5) + 1]}\`**`)
