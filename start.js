@@ -304,37 +304,39 @@ client.on("message", function(message) {
         //Displayes message.author's information (Tag/Username/Avatar/ID/etc.)
         case "profile":
             Usermention = message.mentions.members.first();
-            let embedown = new Discord.RichEmbed()
-                .addField(`${message.author.username}'s info`, `**-__Tag__:** ${message.author.tag}
-                \n**-__Nickname__:** ${message.guild.member(message.author).nickname}
-                \n**-__Muted__:** ${message.guild.member(message.author).mute}
-                \n**-__Roles__:** ${message.guild.member(message.author).roles.map(r => "`" + r.name + "` **|**")}
-                \n**-__ID__:** ${message.guild.member(message.author).id}
-                \n**-__Status:__** ${message.guild.member(message.author).presence.status}
-                `)
-                .setThumbnail(message.author.avatarURL)
-                .setFooter(`Joined: ${message.guild.member(message.author).joinedAt.getUTCDay()}
-                /${message.guild.member(message.author).joinedAt.getUTCMonth()}
-                /${message.guild.member(message.author).joinedAt.getUTCFullYear()}`)
-            ;
             if (!Usermention) {
-                return message.channel.send(embedown);
-            }
-            embed = new Discord.RichEmbed()
-               .addField(`${Usermention.user.username}'s info`, `**-__Tag__:** ${Usermention.user.tag}
-               \n**-__Nickname__:** ${message.guild.member(Usermention.user).nickname}
-               \n**-__Muted__:** ${message.guild.member(Usermention.user).mute}
-               \n**-__Roles__:** ${message.guild.member(Usermention.user).roles.map(r => "`" + r.name + "` **|**")}
-               \n**-__ID__:** ${message.guild.member(Usermention.user).id}
-               \n**-__Status:__** ${message.guild.member(Usermention.user).presence.status}
-               `)
-               .setThumbnail(Usermention.user.avatarURL)
-               .setFooter(`Joined: ${message.guild.member(Usermention.user).joinedAt.getUTCDay()}
-               /${message.guild.member(Usermention.user).joinedAt.getUTCMonth()}
-               /${message.guild.member(Usermention.user).joinedAt.getUTCFullYear()}`)
-            ;
-            if (!Usermention) return message.channel.send(embedown);  
-            else message.channel.send(embed)    
+                let embedown = new Discord.RichEmbed()
+                    .addField(`${message.author.username}'s info`, `**-__Tag__:** ${message.author.tag}
+                    \n**-__Nickname__:** ${message.guild.member(message.author).nickname}
+                    \n**-__Muted__:** ${message.guild.member(message.author).mute}
+                    \n**-__Roles__:** ${message.guild.member(message.author).roles.map(r => "`" + r.name + "` **|**")}
+                    \n**-__ID__:** ${message.guild.member(message.author).id}
+                    \n**-__Status:__** ${message.guild.member(message.author).presence.status}
+                    `)
+                    .setThumbnail(message.author.avatarURL)
+                    .setFooter(`Joined: ${message.guild.member(message.author).joinedAt.getUTCDay()}
+                    /${message.guild.member(message.author).joinedAt.getUTCMonth()}
+                    /${message.guild.member(message.author).joinedAt.getUTCFullYear()}`)
+                ;
+                 return message.channel.send(embedown);
+                }
+            
+            else {
+                embed = new Discord.RichEmbed()
+                    .addField(`${Usermention.user.username}'s info`, `**-__Tag__:** ${Usermention.user.tag}
+                    \n**-__Nickname__:** ${message.guild.member(Usermention.user).nickname}
+                    \n**-__Muted__:** ${message.guild.member(Usermention.user).mute}
+                    \n**-__Roles__:** ${message.guild.member(Usermention.user).roles.map(r => "`" + r.name + "` **|**")}
+                    \n**-__ID__:** ${message.guild.member(Usermention.user).id}
+                    \n**-__Status:__** ${message.guild.member(Usermention.user).presence.status}
+                    `)
+                    .setThumbnail(Usermention.user.avatarURL)
+                    .setFooter(`Joined: ${message.guild.member(Usermention.user).joinedAt.getUTCDay()}
+                    /${message.guild.member(Usermention.user).joinedAt.getUTCMonth()}
+                    /${message.guild.member(Usermention.user).joinedAt.getUTCFullYear()}`)
+                ;
+                message.channel.send(embed); 
+            }   
         break;
        //Bot User's commands
        //Bot Moderation commands
