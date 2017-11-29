@@ -59,7 +59,7 @@ client.on("message", function(message) {
     if (!message.content.startsWith(config.prefix)) return;
     
     //Starting the commands right here
-    switch(args[0]) {
+    switch(args[0].toLowerCase()) { 
        //Bot Info commands 
         //A Ping command to show bots Latency
         case "ping":
@@ -115,7 +115,8 @@ client.on("message", function(message) {
         //Sends an embed to upvote the bot on https://discordbots.org
         case "upvote":
             embed = new Discord.RichEmbed()
-                .addField("Upvote the bot in Discord bot list!", "https://discordbots.org/bot/365751135086051340", true);
+                .addField("Upvote the bot in Discord bot list!", "https://discordbots.org/bot/365751135086051340", true)
+            ;
             message.channel.send(embed);
         break;
         //Command used to evaluate a functions (eg. gb;eval client.guilds.size, returns number of guilds the bot is in)
@@ -224,9 +225,32 @@ client.on("message", function(message) {
             if (!message.content.endsWith("?")) message.channel.send("**Questions end with a question mark, nub.**")
             else (message.channel.send(b[Math.floor(Math.random() * b.length)]))
          break;
+         //Give a a user some items
+         case "give":
+            //Defines the user to be given the items
+            Usermention = message.mentions.members.first();
+            //Defines the items
+            let item = message.content.split(" ").splice(3).join(" ");
+            //The amount of items to be given
+            let number = args[2];
+                if (!Usermention) {
+                    return message.channel.send(`**Please mention a user to give the item**`)
+                } if (!item){
+                    return message.channel.send(`**Please provide an Item**`)
+                }
+                if (!number) {
+                    return message.channel.send(`**Please provide an amount to give**`)
+                } else {
+                    message.channel.send(`Given \`${number}\`x **${item}** to ${Usermention}`);
+                }   
+         break;
        //Bot fun commands
        //Bot Utility commands
-        case "avatarme":
+        case "avatar":
+         Usermention = message.mentions.members.first();
+         if (!Usermention) {
+            return message.channel.send(`**Please mention a user to get their avatar**`); 
+         }
          const colors1 = [
             "#ff1000",
             "#ff4c00",
@@ -238,10 +262,11 @@ client.on("message", function(message) {
             ]; 
          embed = new Discord.RichEmbed()
             .setColor(colors1[Math.floor(Math.random() * colors1.length)])
-            .setAuthor(`${message.author.username}'s avatar`, message.author.avatarURL, message.author.avatarURL)
-            .setImage(message.author.avatarURL)
+            .setAuthor(`${Usermention.user.username}'s avatar`, Usermention.user.avatarURL)
+            .setImage(Usermention.user.avatarURL);
          ;
-         message.channel.send(embed);
+         if (!Usermention) return message.channel.send(`**Please mention a user to get their avatar**`);
+         else message.channel.send(embed);
         break;
        //Bot Utility commands
        //Bot server commands
@@ -270,14 +295,18 @@ client.on("message", function(message) {
         //Gives information about the guild (Icon/Name/MemberCount/Roles Count/Channels Count/ID)
         case "server":  
          embed = new Discord.RichEmbed()
-            .setColor("#00ff3f")
-            .setAuthor("Server Info", message.guild.iconURL)
-            .setThumbnail(message.guild.iconURL)
-            .addField("Member Count", `**${message.guild.memberCount}**`, true)
-            .addField("Server Name", `  \`${message.guild.name}\`  `, true)
-            .addField("Roles Count", message.guild.roles.size, true)
-            .addField("Channels", `**${message.guild.channels.size}**`, true )
-            .addField("Server ID", `\`${message.guild.id}\``, true)
+            .setColor("#e85500")
+            .setAuthor(`${message.guild.name}'s Statistics`, message.guild.iconURL)
+            .addField("Server:", message.guild.name)
+            .addField("ServerID:", message.guild.id, true)
+            .addField("Owner:", message.guild.owner.displayName)
+            .addField("OwnerID:", message.guild.ownerID, true)
+            .addField("Member Count:", message.guild.members.size)
+            .addField("Text/Voice Channels:", message.guild.channels.size, true)
+            .addField("Server Region:", message.guild.region)
+            .addField("Role Count:", message.guild.roles.size, true)
+            .addField("Roles", message.guild.roles.map(r => "`" + r.name + "`").join("**|**"))
+            .setFooter(`Created: ${message.guild.createdAt.getUTCDay()}/${message.guild.createdAt.getUTCMonth()}/${message.guild.createdAt.getUTCFullYear()}`)
          ; 
          message.channel.send(embed);
         break;
@@ -285,15 +314,40 @@ client.on("message", function(message) {
        //Bot User's commands
         //Displayes message.author's information (Tag/Username/Avatar/ID/etc.)
         case "profile":
-            embed = new Discord.RichEmbed()
-                .setTitle(`${message.author.username} 's profile`)
+            Usermention = message.mentions.members.first();
+            let embedown = new Discord.RichEmbed()
+                .addField(`${message.author.username}'s info`, `**-__Tag__:** ${message.author.tag}
+                \n**-__Nickname__:** ${message.guild.member(message.author).nickname}
+                \n**-__Muted__:** ${message.guild.member(message.author).mute}
+                \n**-__Roles__:** ${message.guild.member(message.author).roles.map(r => "`" + r.name + "` **|**")}
+                \n**-__ID__:** ${message.guild.member(message.author).id}
+                \n**-__Game__:** ${message.guild.member(message.author).presence.game.name}
+                \n**-__Status:__** ${message.guild.member(message.author).presence.status}
+                `)
                 .setThumbnail(message.author.avatarURL)
-                .setFooter("Made by:" + " DMCPlayer#6346")
-                .addField("Username", `** ${message.author.username}**`, true)
-                .addField("Tag", message.author.tag, true)
-                .addField("Last message", message.author.lastMessage, true)
-                .addField("User ID", message.author.id, true)
-            message.channel.send(embed)    
+                .setFooter(`Joined: ${message.guild.member(message.author).joinedAt.getUTCDay()}
+                /${message.guild.member(message.author).joinedAt.getUTCMonth()}
+                /${message.guild.member(message.author).joinedAt.getUTCFullYear()}`)
+            ;
+            if (!Usermention) {
+                return message.channel.send(embedown);
+            }
+            embed = new Discord.RichEmbed()
+               .addField(`${Usermention.user.username}'s info`, `**-__Tag__:** ${Usermention.user.tag}
+               \n**-__Nickname__:** ${message.guild.member(Usermention.user).nickname}
+               \n**-__Muted__:** ${message.guild.member(Usermention.user).mute}
+               \n**-__Roles__:** ${message.guild.member(Usermention.user).roles.map(r => "`" + r.name + "` **|**")}
+               \n**-__ID__:** ${message.guild.member(Usermention.user).id}
+               \n**-__Game__:** ${message.guild.member(Usermention.user).presence.game.name}
+               \n**-__Status:__** ${message.guild.member(Usermention.user).presence.status}
+               `)
+               .setThumbnail(Usermention.user.avatarURL)
+               .setFooter(`Joined: ${message.guild.member(Usermention.user).joinedAt.getUTCDay()}
+               /${message.guild.member(Usermention.user).joinedAt.getUTCMonth()}
+               /${message.guild.member(Usermention.user).joinedAt.getUTCFullYear()}`)
+            ;
+            if (!Usermention) return message.channel.send(embedown);  
+            else message.channel.send(embed)    
         break;
        //Bot User's commands
        //Bot Moderation commands
@@ -379,6 +433,7 @@ client.on("message", function(message) {
         break;
        //Bot rp commands
        //Bot image commands
+        //Cat images
         case "kitten":
         case "cat":
         case "koneko":
@@ -433,6 +488,7 @@ client.on("message", function(message) {
             ;
            message.channel.send(embed);
            break;
+        //Puppy images
         case "puppy":    
         case "dog":
         case "papi-":
@@ -469,6 +525,7 @@ client.on("message", function(message) {
 
          message.channel.send(embed);
         break;
+        //Spooky Images
         case "spooky":
             var spooky = [
                 "https://i.imgur.com/kEUl298.jpg",
@@ -493,6 +550,7 @@ client.on("message", function(message) {
             ;
             message.channel.send(embed);
         break;
+        //Psycho images
         case "psycho":
            var psycho = [
                "http://s3.narvii.com/image/q6pmhaulolzjzpmzrmg5o3cfjecxwwsx_hq.jpg",
@@ -517,7 +575,9 @@ client.on("message", function(message) {
        //Bot image commands
        //Bot Ticket commands
         case "bug":
+           //Defines the bug prefix
             const bugp = config.prefix+"bug";
+           //Mostly useless stuff that can be just done with args.slice(1).join(" ");
             const bugargs = message.content.substring(bugp.length).split(" ");
             const bug = bugargs.join(" ");
 
@@ -530,6 +590,7 @@ client.on("message", function(message) {
             var sideinfo = new Discord.RichEmbed()
                 .setColor("#d17600")
             ;
+         //Checks if there is any args
          if (!bug.includes(args[1])) message.channel.send("Usage: **---bug** `<message>`");
 
          else {
@@ -574,7 +635,7 @@ client.on("message", function(message) {
         case "repo":
         case "repository":
            message.channel.send(":gear:**Go support my so cool (not really) author on GitHub!:gear:**")
-           message.channel.send(":bulb: https://github.com/DMCPlayer/Gamebot :bulb:" ); 
+           message.channel.send(":bulb: https://github.com/DMCPlayer/Gamebotv1.0.1 :bulb:" ); 
         break;
        //Bot GitHub commands
        //Bot help commands
@@ -589,21 +650,24 @@ client.on("message", function(message) {
                 "#ff00e1",
             ]; 
             let help = new Discord.RichEmbed()
-            .setColor(helpc[Math.floor(Math.random() * helpc.length)])
-            .addField(helps.title, helps.Line)
-            .addField("Info Commmands", helps.infoCommands)
-            .addField("GitHub", helps.gitHub)
-            .addField("Utilities", helps.utilities)
-            .addField("Moderation", helps.moderation)
-            .addField("Fun", helps.fun)
-            .addField("Images", helps.images)
-            .addField("Rps", helps.rps)
-            .addField("Tickets", helps.tickets)
-            .setDescription(`Current prefix: ${config.prefix}`)
-            .setFooter("Made by: DMCPlayer#6346");
+                .setColor(helpc[Math.floor(Math.random() * helpc.length)])
+                .addField(helps.title, helps.Line)
+                .addField("Info Commmands", helps.infoCommands)
+                .addField("GitHub", helps.gitHub)
+                .addField("Utilities", helps.utilities)
+                .addField("Moderation", helps.moderation)
+                .addField("Fun", helps.fun)
+                .addField("Images", helps.images)
+                .addField("Rps", helps.rps)
+                .addField("Tickets", helps.tickets)
+                .setDescription(`Current prefix: ${config.prefix}`)
+                .setFooter("Made by: DMCPlayer#6346")
+            ;
          message.channel.send(help);
         break;
-       //Bot help commands  
+       //Bot help commands 
+       //Bot Test commands
+       //Bot Test commands
     } 
 });
 
