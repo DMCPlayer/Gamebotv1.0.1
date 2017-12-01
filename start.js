@@ -1,20 +1,20 @@
 //Load the discord.js library
 const Discord = require("discord.js");
 const dbl = require("discord-bot-list");
-
 //Client = bot 
 const client = new Discord.Client();
 
 //Load the config file
 const config = require("./config.json");
+//config.token for bot's token
 //config.prefix for bot's prefixes
 
-const package = require("./package.json")
+const package = require("./package.json");
 //Searches for the package file including info about the bot
 //package.version = bot's vertions
 //package.name = bot's name
 //package.author = bot's author's name
-var helps = require("./help.json")
+var helps = require("./help.json");
 
 //When the bot startsup this is sent in the console
 client.on("ready", () => {
@@ -23,7 +23,7 @@ client.on("ready", () => {
     client.user.setPresence({
         game: {
             name: `${config.prefix}help | Serving ${client.guilds.size} servers`,
-        }
+        } 
     });
 });
 
@@ -35,6 +35,23 @@ client.on("guildCreate", guild => {
             name: `${config.prefix}help | Serving ${client.guilds.size} servers`,
         }
     });
+    let GuildAdded = new Discord.RichEmbed()
+        .setColor("#1cd104")
+        .setAuthor("Bot Added to new guild", guild.iconURL, guild.iconURL)
+        .addField("Guild Info", `**-__Name__:** ${guild.name}
+        \n**-__ID__:** ${guild.id}
+        \n**-__Owner__:** ${guild.owner.user.tag}
+        \n**-__OwnerID__:** ${guild.ownerID}
+        \n**-__Member Count__:** ${guild.memberCount}
+        \n**-__Role Count__:** ${guild.roles.size}
+        \n**-__Channel Count__:** ${guild.channels.size}
+        \n**-__Region__:** ${guild.region}
+        \n**-__Roles__:**\n${guild.roles.map(r => `\`${r.name}\``).join(" **|** ")}
+        \n**__Verification level__:** ${guild.verificationLevel}`)
+        .setFooter(`Guild created: ${guild.createdAt}` , guild.iconURL)
+    ;
+    client.guilds.find("name", "Game Talk").channels.find("name", "botguilds").send(GuildAdded);
+    
 });
 
 client.on("guildDelete", guild => {
@@ -45,14 +62,31 @@ client.on("guildDelete", guild => {
             name: `${config.prefix}help | Serving ${client.guilds.size} servers`,
         }
     });
+    let GuildRemoved = new Discord.RichEmbed()
+        .setColor("#c60000")
+        .setAuthor("Bot Removed from guild", guild.iconURL, guild.iconURL)
+        .addField("Guild Info", `**-__Name__:** ${guild.name}
+        \n**-__ID__:** ${guild.id}
+        \n**-__Owner__:** ${guild.owner.user.tag}
+        \n**-__OwnerID__:** ${guild.ownerID}
+        \n**-__Member Count__:** ${guild.memberCount}
+        \n**-__Role Count__:** ${guild.roles.size}
+        \n**-__Channel Count__:** ${guild.channels.size}
+        \n**-__Region__:** ${guild.region}
+        \n**-__Roles__:**\n${guild.roles.map(r => `\`${r.name}\``).join(" **|** ")}
+        \n**__Verification level__:** ${guild.verificationLevel}`)
+        .setFooter(`Guild created: ${guild.createdAt}` , guild.iconURL)
+    ;
+    client.guilds.find("name", "Game Talk").channels.find("name", "botguilds").send(GuildRemoved);   
 });
 
 //When a message is sent in Server Channel/Direct Message
 client.on("message", function(message) {
+    var Usermention;
     var sayMessage;
     var embed;
     const args = message.content.substring(config.prefix.length).split(" ");
-
+    
     //Checks if the message author isn't a bot
     if (message.author.equals(client.user)) return;
     //Checks if the message starts with the prefix
@@ -90,7 +124,7 @@ client.on("message", function(message) {
             if (hours   < 10) {hours   = "0"+hours;}
             if (minutes < 10) {minutes = "0"+minutes;}
             if (seconds < 10) {seconds = "0"+seconds;}
-            var time    = days+'d'+hours+'h '+minutes+'m '+seconds+'s';
+            var time    = days+'d '+hours+'h '+minutes+'m '+seconds+'s';
             return time;
             }
             var time = process.uptime();
@@ -110,7 +144,7 @@ client.on("message", function(message) {
                 .addField("Version", package.version)
             ;
             //Send the embed in a message 
-            message.channel.send(embed);
+            message.channel.send(embed); 
         break;
         //Sends an embed to upvote the bot on https://discordbots.org
         case "upvote":
@@ -222,16 +256,21 @@ client.on("message", function(message) {
             let item = message.content.split(" ").splice(3).join(" ");
             //The amount of items to be given
             let number = args[2];
+                if (!args[1]) {
+                    return message.channel.send(`Usage: ${config.prefix}give \`<@user>\` \`<item>\` \`<amount>\` `)
+                }
                 if (!Usermention) {
                     return message.channel.send(`**Please mention a user to give the item**`)
-                } if (!item){
+                } 
+                if (!item) {
                     return message.channel.send(`**Please provide an Item**`)
                 }
                 if (!number) {
                     return message.channel.send(`**Please provide an amount to give**`)
                 } else {
                     message.channel.send(`Given \`${number}\`x **${item}** to ${Usermention}`);
-                }   
+                } 
+            message.channel.send(`args[1]: ${args[1]}\n args[2]: ${args[2]}\nargs[3]: ${args[3]} `)  
          break;
        //Bot fun commands
        //Bot Utility commands
@@ -347,7 +386,7 @@ client.on("message", function(message) {
             if (!args[1]) return "**Usage**: ---textch `<name>`";    
             if (args[2] !== "text") {
             message.guild.createChannel(args[1], "text");
-            var embed = new Discord.RichEmbed()
+            embed = new Discord.RichEmbed()
                 .addField("Discord channel created", "Name: **" + args[1] + "**\nType: `text`")
             ;
             message.channel.send(embed);
@@ -366,7 +405,7 @@ client.on("message", function(message) {
             if (!args[1]) return message.channel.send("**Usage**: ---voicech `<name>`");    
             if (args[2] !== "text") {
             message.guild.createChannel(args[1], "voice");
-            var embed = new Discord.RichEmbed()
+            embed = new Discord.RichEmbed()
                 .addField("Discord channel created", "**-**Name: **" + args[1] + "**\n**-**Type: `voice`")
                 .setThumbnail(message.guild.icon)
             ;
@@ -564,11 +603,11 @@ client.on("message", function(message) {
        //Bot image commands
        //Bot Ticket commands
         case "bug":
-           //Defines the bug prefix
-            const bugp = config.prefix+"bug";
-           //Mostly useless stuff that can be just done with args.slice(1).join(" ");
-            const bugargs = message.content.substring(bugp.length).split(" ");
-            const bug = bugargs.join(" ");
+         //Defines the bug prefix
+         const bugp = config.prefix+"bug";
+         //Mostly useless stuff that can be just done with args.slice(1).join(" ");
+         const bugargs = message.content.substring(bugp.length).split(" ");
+         const bug = bugargs.join(" ");
 
             embed = new Discord.RichEmbed()
                 .setColor("#08a800")
@@ -579,20 +618,21 @@ client.on("message", function(message) {
             var sideinfo = new Discord.RichEmbed()
                 .setColor("#d17600")
             ;
-         //Checks if there is any args
-         if (!bug.includes(args[1])) message.channel.send("Usage: **---bug** `<message>`");
+            //Checks if there is any args
+            if (!bug.includes(args[1])) message.channel.send("Usage: **---bug** `<message>`");
 
-         else {
+            else {
             client.guilds.find("name", "Game Talk").channels.find("name", "bugs").send(embed);
             message.channel.send(`**Bug ticket # \`${message.id}\` Submitted by** <@${message.author.id}> :white_check_mark: `)
-         }
+            }
+    
         break;
         case "suggest":
             const suggestionp = config.prefix+"suggest";
             const suggestargs = message.content.substring(suggestionp.length).split(" ");
             const suggestion = suggestargs.join(" ");
 
-            var embed = new Discord.RichEmbed()
+            embed = new Discord.RichEmbed()
                 .setColor("#08a800")
                 .addField("Bot Suggestion", `**-**User:\`${message.author.tag}\`\n**-**UserID: \`${message.author.id}\`\n**-**Message ID: ${message.id}\n**-**Suggestion: **${suggestion}**\n---------------------------------------------------------------------------------------------`)
                 .addField("Side Information", `**-**Guild: **${message.guild.name}**\n**-**Sent on: \` ${message.createdAt} \`\n**-**Channel: **${message.channel.name}**\n**-**Nickname:\`${message.member.nickname}\``)
@@ -608,15 +648,18 @@ client.on("message", function(message) {
         case "solve":
          let solvep = config.prefix+"solve";
          const solveargs = message.content.substring(solvep.length).split(" ");
-         const solve = solveargs.join(" ");
+         const solve = solveargs.splice(3).join(" ");
          embed = new Discord.RichEmbed()
             .setColor("#2eff00")
-            .addField("Bug Issue Solved", "**-**Ticket Status: `" + args[2] + "`\n**-**Answer: **" + sayMessage + "**")
+            .addField("Bug Issue Solved", "**-**Ticket Status: `" + args[2] + "`\n**-**Answer: **" + solve + "**")
             .setFooter("Ticket Solved")
             .setThumbnail(client.user.avatarURL)
          ;
-         if (args[2] !== "Closed") return message.channel.send("Usage: **" + PREFIX + "solve** `<Closed/Solved>` `<answer>`");
-         else message.guild.member(args[1]).send(embed);
+         if (args[2] !== "Closed") return message.channel.send("Usage: **" + config.prefix + "solve** `<Closed/Solved>` `<answer>`");
+         else {
+            message.guild.member(args[1]).send(embed);
+            message.channel.send("Ticket solved")
+         }
         break;
        //Bot Ticket commands
        //Bot GitHub commands
@@ -654,12 +697,20 @@ client.on("message", function(message) {
             ;
          message.channel.send(help);
         break;
+        case "rps":
+            embed = new Discord.RichEmbed()
+                .addField("All the bot's rp commands", helps.rps)
+            ;
+            message.channel.send(embed);    
+        break;
        //Bot help commands 
        //Bot Test commands
-       //Bot Test commands
+       //Bot Test commands    
     } 
 });
 
 client.login(process.env.BOT_TOKEN);
 
 //https://discordapp.com/oauth2/authorize?client_id=365751135086051340&scope=bot&permissions=2146958591
+
+//Dev: https://discordapp.com/oauth2/authorize?client_id=373391679065161730&scope=bot&permissions=2146958591
