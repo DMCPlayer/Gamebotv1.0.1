@@ -712,5 +712,3 @@ client.on("message", function(message) {
 client.login(process.env.BOT_TOKEN);
 
 //https://discordapp.com/oauth2/authorize?client_id=365751135086051340&scope=bot&permissions=2146958591
-
-//Dev: https://discordapp.com/oauth2/authorize?client_id=373391679065161730&scope=bot&permissions=2146958591
