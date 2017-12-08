@@ -90,7 +90,7 @@ client.on("message", function(message) {
     //Checks if the message author isn't a bot
     if (message.author.equals(client.user)) return;
     //Checks if the message starts with the prefix
-    if (!message.content.startWith(config.prefix)) return;
+    if (!message.content.startsWith(config.prefix)) return;
 
     //Checks if the message includes the bot's tag, then replies with something
     if (message.content.includes(`<@${client.user.id}>`)) {
