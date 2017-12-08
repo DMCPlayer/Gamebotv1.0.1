@@ -90,8 +90,20 @@ client.on("message", function(message) {
     //Checks if the message author isn't a bot
     if (message.author.equals(client.user)) return;
     //Checks if the message starts with the prefix
-    if (!message.content.startsWith(config.prefix)) return;
-    
+    if ([config.prefix].some(prefix =>message.content.startsWith(prefix))) return;
+
+    //Checks if the message includes the bot's tag, then replies with something
+    if (message.content.includes(`<@${client.user.id}>`)) {
+        let responds = [
+            'What do you want?',
+            'lmao XDDXDXD so funny.',
+            'Not that I care.',
+            ':neutral_face: ',
+            'Sorry, I\'m busy ignoring you.',
+            'Booo',
+        ];
+        message.channel.send(`${responds[Math.floor(Math.random() * responds.length)]}`)
+    }
     //Starting the commands right here
     switch(args[0].toLowerCase()) { 
        //Bot Info commands 
