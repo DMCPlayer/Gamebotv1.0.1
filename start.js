@@ -282,7 +282,6 @@ client.on("message", function(message) {
                 } else {
                     message.channel.send(`Given \`${number}\`x **${item}** to ${Usermention}`);
                 } 
-            message.channel.send(`args[1]: ${args[1]}\n args[2]: ${args[2]}\nargs[3]: ${args[3]} `)  
          break;
        //Bot fun commands
        //Bot Utility commands
