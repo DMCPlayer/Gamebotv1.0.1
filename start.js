@@ -123,7 +123,7 @@ client.on("message", function(message) {
                "#000cff",
                "#ff00e1",
            ]; 
-           //Boing stuff to set the seconds/minutes/hours/day/bla bla..
+           //Boring stuff to set the seconds/minutes/hours/day/bla bla..
             String.prototype.toHHMMSS = function () {
             //Defines the days, hours, minutes, seconds     
             var sec_num = parseInt(this, 10); // don't forget the second param
