@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "discord-bot-list": "^1.0.1",
-    "discord.js": "^11.2.1"
+    "discord.js": "^11.3.0"
   }
 }

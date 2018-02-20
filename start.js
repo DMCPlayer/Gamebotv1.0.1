@@ -1,3 +1,27 @@
+/*
+* MIT License
+*
+* Copyright (c) 2017 DMCPlayer
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
+
 //Load the discord.js library
 const Discord = require("discord.js");
 const dbl = require("discord-bot-list");
@@ -136,12 +160,11 @@ client.on("message", function(message) {
             if (hours   < 10) {hours   = "0"+hours;}
             if (minutes < 10) {minutes = "0"+minutes;}
             if (seconds < 10) {seconds = "0"+seconds;}
-            var time    = days+'d '+hours+'h '+minutes+'m '+seconds+'s';
-            return time;
+            return (days+'d '+hours+'h '+minutes+'m '+seconds+'s');
             }
             var time = process.uptime();
             var uptime = (time + "").toHHMMSS();
-           //Boing stuff to set the seconds/minutes/hours/day/bla bla..
+           //Boring stuff to set the seconds/minutes/hours/day/bla bla..
  
             //The sent embed including all possible information
             embed = new Discord.RichEmbed()
@@ -469,6 +492,10 @@ client.on("message", function(message) {
         case "stab":
             if (!args[1]) return message.channel.send(`**Please mention someone for that**  :x:`);               
             else message.channel.send(`**Wow! <@${message.author.id}> stabbed ${args[1]}, R.I.P**`)
+        break;
+        case "pat":
+            if (!args[1]) return message.channel.send(`**Please mention someone for that**  :x:`);               
+            else message.channel.send(`**Aww, <@${message.author.id}> patted ${args[1]}. Who's the good boi?** :hand_splayed:`)
         break;
        //Bot rp commands
        //Bot image commands

@@ -1,4 +1,2 @@
-# Gamebotv1.0.1
-<a href="https://discordbots.org/bot/365751135086051340">
-  <img src="https://discordbots.org/api/widget/365751135086051340.png" alt="Discord Bots" />
-</a>
+# GameBot (New) [![Join chat on Discord server](/images/discord.png)](https://discord.gg/McV3jgh)
+[![GameBot on Discord Bots](https://discordbots.org/api/widget/365751135086051340.png)](https://discordbots.org/bot/365751135086051340)
