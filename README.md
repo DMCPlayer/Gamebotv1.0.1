@@ -8,7 +8,7 @@ Use [this invite link to add GameBot to your Discord server](https://discordapp.
 ## License
 GameBot is licensed under [MIT License](/LICENSE).
 
-> Copyright (c) 2018 DMCPlayer
+> Copyright (c) 2017-2018 DMCPlayer
 > 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
