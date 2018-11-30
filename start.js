@@ -188,22 +188,6 @@ client.on("message", function(message) {
             ;
             message.channel.send(embed);
         break;
-        //Command used to evaluate a functions (eg. gb;eval client.guilds.size, returns number of guilds the bot is in)
-        case "eval":
-            //sayMessage is the message sent by the author excluding the command and prefix
-            sayMessage = args.slice(0).join(" ")
-            embed = new Discord.RichEmbed()
-                .setColor("#d84704")
-                .setAuthor("Evaluating", client.user.avatarURL)
-                .addField(":inbox_tray: Input:", "```" + sayMessage + "```")
-                .addField(":outbox_tray: Output:", "```" + eval(args[1]) + "```")
-            ;
-            //Checks if the author's id equals the bot's owner id. Me. hi.
-            if (message.author.id !== "191520413107355648") return;
-            else {
-                message.channel.send(embed);
-            }            
-        break;
         //Lists the servers the bot is serving
         case "servers":
             if (message.author.id !== "191520413107355648" || client.guilds.size > 100) return;
